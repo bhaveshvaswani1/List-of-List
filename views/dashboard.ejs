@@ -1,0 +1,69 @@
+<br>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+
+<a href="/users/logout" class="btn btn-secondary">Logout</a>
+<br>
+<br>
+<link rel="stylesheet" href="../public/styles.css">
+<form action="/list/add" method="POST">
+  <input type="submit" name="list" value="Add List" />
+</form>
+
+
+<div style="  display: flex; flex-direction: row;">
+
+  <% data.forEach(function(item){%>
+  <div class="card-list">
+    <form action="/list/listname" method="POST">
+      
+     <input class="card-list-name" name="listname" value="<%=item.name%>" placeholder="card list name" />
+     <input type="submit" name="list" value="save" />
+      <input name="sublist_id" value="<%=item.count%>" style="display: none;">
+    </form>
+    <form action="/list/remove" method="POST">
+      <input type="submit" name="list" value="Remove List" />
+      <input name="id" value="<%=item.count%>" style="display: none;">
+    </form>
+    <div class="card-list-container">
+      <%item.sublist.forEach(item2=>{%>
+
+
+      <div class="task-card">
+
+        <!-- X button -->
+        <form action="/list/remove-sublist" method="POST">
+          <input class="card-remove-btn" type="submit" name="list" value="X" />
+          <input name="sublist_id" value="<%=item2[0].id%>" style="display: none;">
+          
+          <input name="parent_id" value="<%=item.count%>" style="display: none;">
+        </form>
+        <!-- save button -->
+        <form action="/list/add-data-to-sublist" method="POST">
+          <input style="margin-top: 5px;" type="submit" name="list" value="Save" />
+          <input name="sublist_id" value="<%=item2[0].id%>" style="display: none;">
+          
+          <input name="parent_id" value="<%=item.count%>" style="display: none;">
+        <br></br>
+        <label>Title</label>
+        <input name="title" class="task-title" value="<%=item2[0].title%>" placeholder="title" />
+        <br></br>
+        <label>Description</label>
+        <textarea rows="4" cols="15" name="description" class="task-description" value=""
+          placeholder="description"><%=item2[0].description%></textarea>
+        </form>
+        <br></br>
+      </div>
+
+      <%})%>
+
+
+
+    </div>
+    <form action="/list/addsublist" method="POST">
+      <input class="card-add-btn" type="submit" name="sublist" value="+" />
+      <input name="sublist_id" value="<%=item.count%>" style="display: none;">
+    </form>
+  </div>
+  <%})%>
+
+</div>
