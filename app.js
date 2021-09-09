@@ -15,8 +15,7 @@ require('./config/passport')(passport);
 mongoose.connect('mongodb://localhost:27017/task',{useNewUrlParser : true,useUnifiedTopology: true},()=>{
     console.log('successfully connected to database');
 });
-var data = new list({count:0});
-data.save();
+
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');

@@ -6,7 +6,7 @@ const ListSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    count:{
+    id:{
         type:String,
         required:true
     },

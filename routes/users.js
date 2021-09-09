@@ -56,7 +56,7 @@ router.post('/register', (req, res) => {
           password
         });
 
-        var data = new list({user:email, count:0,name:"",sublist:[]});
+        var data = new list({user:email, id:0,name:"",sublist:[]});
         data.save();
 
         bcrypt.genSalt(10, (err, salt) => {

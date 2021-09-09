@@ -18,11 +18,11 @@
       
      <input class="card-list-name" name="listname" value="<%=item.name%>" placeholder="card list name" />
      <input type="submit" name="list" value="save" />
-      <input name="sublist_id" value="<%=item.count%>" style="display: none;">
+      <input name="sublist_id" value="<%=item.id%>" style="display: none;">
     </form>
     <form action="/list/remove" method="POST">
       <input type="submit" name="list" value="Remove List" />
-      <input name="id" value="<%=item.count%>" style="display: none;">
+      <input name="id" value="<%=item.id%>" style="display: none;">
     </form>
     <div class="card-list-container">
       <%item.sublist.forEach(item2=>{%>
@@ -35,14 +35,14 @@
           <input class="card-remove-btn" type="submit" name="list" value="X" />
           <input name="sublist_id" value="<%=item2[0].id%>" style="display: none;">
           
-          <input name="parent_id" value="<%=item.count%>" style="display: none;">
+          <input name="parent_id" value="<%=item.id%>" style="display: none;">
         </form>
         <!-- save button -->
         <form action="/list/add-data-to-sublist" method="POST">
           <input style="margin-top: 5px;" type="submit" name="list" value="Save" />
           <input name="sublist_id" value="<%=item2[0].id%>" style="display: none;">
           
-          <input name="parent_id" value="<%=item.count%>" style="display: none;">
+          <input name="parent_id" value="<%=item.id%>" style="display: none;">
         <br></br>
         <label>Title</label>
         <input name="title" class="task-title" value="<%=item2[0].title%>" placeholder="title" />
@@ -61,7 +61,7 @@
     </div>
     <form action="/list/addsublist" method="POST">
       <input class="card-add-btn" type="submit" name="sublist" value="+" />
-      <input name="sublist_id" value="<%=item.count%>" style="display: none;">
+      <input name="sublist_id" value="<%=item.id%>" style="display: none;">
     </form>
   </div>
   <%})%>

@@ -10,7 +10,7 @@ router.post('/add',async function(req,res){
 
 
     var arr = [{}];
-    var item = {user:req.user.email,count:uniqid(),name:"",arr};
+    var item = {user:req.user.email,id:uniqid(),name:"",arr};
     var data = new list(item);
     data.save();
 
@@ -21,11 +21,11 @@ router.post('/add',async function(req,res){
 router.post('/addsublist',async function(req,res){
 
     var arr = [{parentlist:req.body.sublist_id , id:uniqid(), title:"", description:""}];
-    var temp = await list.findOne({count:req.body.sublist_id});
+    var temp = await list.findOne({id:req.body.sublist_id});
     var sublist  = temp.sublist;
     sublist.push(arr);
     temp.sublist=sublist;
-   await list.findOneAndUpdate({count:req.body.sublist_id},temp,null,function(err,data){
+   await list.findOneAndUpdate({id:req.body.sublist_id},temp,null,function(err,data){
         if(err)
         {
             console.log(err);
@@ -39,7 +39,7 @@ router.post('/addsublist',async function(req,res){
 // add new sublist
 router.post('/listname',async function(req,res){
 
-   await list.findOneAndUpdate({count:req.body.sublist_id},{name:req.body.listname},null,function(err,data){
+   await list.findOneAndUpdate({id:req.body.sublist_id},{name:req.body.listname},null,function(err,data){
         if(err)
         {
             console.log(err);
@@ -52,7 +52,7 @@ router.post('/listname',async function(req,res){
 });
 router.post('/add-data-to-sublist',async function(req,res){
 
-    var temp = await list.findOne({count:req.body.parent_id});
+    var temp = await list.findOne({id:req.body.parent_id});
 
     var arr = temp.sublist;
      for (var i = 0; i < arr.length; i++) {
@@ -67,7 +67,7 @@ router.post('/add-data-to-sublist',async function(req,res){
  
      }
      temp.sublist=arr;
-     await list.findOneAndUpdate({count:req.body.parent_id},temp,null,function(err,data){
+     await list.findOneAndUpdate({id:req.body.parent_id},temp,null,function(err,data){
         if(err)
         {
             console.log(err);
@@ -82,7 +82,7 @@ router.post('/add-data-to-sublist',async function(req,res){
 // remove  sublist
 router.post('/remove-sublist',async function(req,res){
 
-    var temp = await list.findOne({count:req.body.parent_id});
+    var temp = await list.findOne({id:req.body.parent_id});
 
    var arr = temp.sublist;
     for (var i = 0; i < arr.length; i++) {
@@ -97,7 +97,7 @@ router.post('/remove-sublist',async function(req,res){
     temp.sublist=arr;
     // console.log(temp);
 
-   await list.findOneAndUpdate({count:req.body.parent_id},temp,null,function(err,data){
+   await list.findOneAndUpdate({id:req.body.parent_id},temp,null,function(err,data){
         if(err)
         {
             console.log(err);
@@ -112,7 +112,7 @@ router.post('/remove-sublist',async function(req,res){
 
 router.post('/remove',async function(req,res){
 
-    list.findOneAndDelete({count:req.body.id}, function (err, docs) {
+    list.findOneAndDelete({id:req.body.id}, function (err, docs) {
         if (err){
             console.log(err)
         }
